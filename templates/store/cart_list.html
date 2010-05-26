@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+
+{% block title %}Your Carts{% endblock %}
+
+{% block header %}Your carts{% endblock %}
+
+{% block content %}
+{% ifequal user.cart_set.count 0 %}
+You have no carts!  <a href="/store/">Time to start shopping!</a>
+{% else %}
+{% ifnotequal cart_list.count 5 %}
+<a id="newcart" href="/store/cart/add/">Create a new cart.</a>
+{% endifnotequal %}
+<table>
+    <tbody>
+        {% for cart in cart_list %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td><a href="/store/cart/{{ cart.id }}/">{{ cart.name }}</a> <em>({% if cart.is_shared %}public{% else %}private{% endif %}{% if cart.is_active %}, active{% endif %})</em><br />
+                <span class="product-metadata">{{ cart.item_set.count }} item{{ cart.item_set.count|pluralize }} totaling ${{ cart.get_total }}</span></td>
+            <td><a href="/store/cart/{{ cart.id }}/?action=delete">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endifequal %}
+{% endblock %}

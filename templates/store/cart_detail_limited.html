@@ -1,0 +1,9 @@
+{% extends "store/base.html" %}
+
+{% block title %}Cart: {{ cart.name }}{% endblock %}
+
+{% block header %}{{ cart.owner.get_full_name }}'s Cart: {{ cart.name }} - {{ cart.get_local_status_display }}{% endblock %}
+
+{% block content %}
+{% include "store/limited_cart_table.inc" %}
+{% endblock %}

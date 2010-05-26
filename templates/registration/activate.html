@@ -1,0 +1,13 @@
+{% extends "registration/base.html" %}
+
+{% block title %}User activation {% if account %}successful{% else %} unsuccessful{% endif %}{% endblock %}
+
+{% block header %}User activation {% if account %}successful{% else %} unsuccessful{% endif %}{% endblock %}
+
+{% block content %}
+{% if account %}
+<p class="success">User activation successful!</p>
+{% else %}
+<p class="error">User activation unsuccessful - please check and make sure you copied the entire url from the activation email.  Activation keys are only good for {{ expiration_days }} days!</p>
+{% endif %}
+{% endblock %}

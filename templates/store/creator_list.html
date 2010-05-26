@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+
+{% block title %}Authors and Composers{% endblock %}
+
+{% block header %}Authors and Composers{% endblock %}
+
+{% block content %}
+<div id="creator-list">
+    <ul>
+        {% for creator in creator_list %}
+        <li><strong>{{ creator.user.get_full_name }}</strong> - <a href="/store/creator/{{ creator.user.username }}/">Profile</a> | <a href="/store/products/creator/{{ creator.user.username }}/">Products</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

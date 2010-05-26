@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block section %}About{% endblock %}
+
+{% block sectionlinks %}
+<ul>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/about/faq/">FAQ</a></li>
+    <li><a href="/about/ip/">Intellectual Property</a></li>
+    <li><a href="/about/submit/">Submit</a></li>
+    <li><a href="/about/legal/">Legal/Privacy</a></li>
+    <li><a href="/about/contact/">Contact Us</a></li>
+</ul>
+{% endblock %}
+
+{% block header %}{% block title %}{{ flatpage.title }}{% endblock %}{% endblock %}
+
+{% block content %}{{ flatpage.content }}{% endblock %}

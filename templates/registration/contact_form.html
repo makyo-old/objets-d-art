@@ -1,0 +1,29 @@
+{% extends "flatpages/about.html" %}
+
+{% block header %}{% block title %}Contact Us{% endblock %}{% endblock %}
+
+{% block content %}
+{% if form.errors and errors %}
+<div class="error">{{ form.errors }}</div>
+{% endif %}
+<form method="post" action=".">
+<table>
+    <tr>
+        <th>{{ form.sender.label_tag }}</th>
+        <td>{{ form.sender }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.subject.label_tag }}</th>
+        <td>{{ form.subject }}</td>
+    </tr>
+    <tr>
+        <th>{{ form.message.label_tag }}</th>
+        <td>{{ form.message }}</td>
+    </tr>
+    <tr>
+        <td><input type="reset" value="Reset form" /></td>
+        <td><input type="submit" value="Submit" /></td>
+    </tr>
+</table>
+</form>
+{% endblock %}

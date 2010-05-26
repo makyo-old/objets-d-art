@@ -1,0 +1,4 @@
+Requires django-registration, django-tagging, and gchecky:
+http://bitbucket.org/ubernostrum/django-registration/ install/ln as 'registration'
+http://code.google.com/p/django-tagging/ install/ln as 'tagging'
+http://code.google.com/p/gchecky/ install/ln as 'gchecky'

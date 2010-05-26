@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block header %}Please confirm delete{% endblock %}
+{% block content %}
+<div class="warning">
+    Are you sure you want to delete cart '{{ cart.name }}'?
+</div>
+
+<p style="text-align: center"<a href="{{ request.path }}?action=delete&confirm=yes">Yes</a> | <strong><a href="/store/carts/">No</a></strong></p>
+
+{% include "store/limited_cart_table.inc" %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "store/base.html" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block header %}Welcome to Matthew J. Scott Music Publishing{% endblock %}
+
+{% block content %}
+<p>Welcome to the sandbox version of the store.</p>
+
+<p>Being a sandbox, no purchases will actually be charged or sent.  If you would like to play with Google Checkout, though, please use the following information:
+<ul>
+    <li><em>Card Number</em> 4111 1111 1111 1111</li>
+    <li><em>CVC</em> Any three digits</li>
+    <li><em>Expiration date</em> Any date in the future</li>
+</ul></p>
+{% for item in newsitems %}
+<div class="newsitem">
+    <span class="title">{{ item.title }}</span>
+    <span class="postdate">{{ item.ctime|date:"D d M Y" }}</span>
+    <span class="body">{{ item.body|safe|linebreaks }}</span>
+    <span class="mtime">Last Modified: {{ item.mtime|date:"D d M Y h:m P" }}</span>
+</div>
+{% endfor %}
+{% endblock %}

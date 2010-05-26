@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Matthew J. Scott Music Publishing | {% block title %}{% endblock %}| We Publish So That You Can Write</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" media="all" href="http://media.mjs-publishing.com/css/layout.css?n" />
+    <link type="text/css" rel="stylesheet" media="all" href="http://media.mjs-publishing.com/css/style.css?n" />
+    <!--[if IE]>
+    <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/pixture_reloaded/ie.css" >
+    <![endif]-->
+</head>
+
+<body id="pixture-reloaded" class="front logged-in page-node one-sidebar sidebar-left with-logo">
+    <div id="skip-to-content"><a href="#main-content">Skip to Content</a></div>
+    <div id="page" style="width: 85%;">
+        <div id="header">
+            <div id="logo"><a href="/" title="Home" rel="home"><img src="/sites/mjs-publishing.com/files/color/pixture_reloaded-839513bc/logo.png" alt="Home" id="logo-image" /></a></div>
+            <div id="head-elements">
+                <div id="branding">
+                    <h1 id="site-name"><a href="/" title="Home" rel="home"><strong>Matthew J. Scott Music Publishing</strong></a></h1>
+                </div> <!-- /#branding -->
+            </div> <!-- /#head-elements -->
+            <div id="primary">
+                <div id="primary-inner">
+                    <ul class="links">
+                        <li class="menu-249 active-trail first active"><a href="/" title="Home page" class="active">Home</a></li>
+                        <li class="menu-250 last"><a href="/forum" title="Interact with other people in MJS-MP">Forums</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="content">	
+			<!-- content generated dynamically -->
+			<div id="page-header"><h2>{% block header %}{% endblock %}</h2></div>
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer">
+            <div id="footer-message">
+                All content is copyright &copy; Matthew J. Scott Music Publishing (MJS Publishing) except where stated otherwise.  Powered by <a href="http://djangoproject.com">Django</a> and <a href="http://mjs-svc.com">MJS Services</a><br />
+                <a href="http://mjspub.com">Looking for MJS Publishing Group?</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

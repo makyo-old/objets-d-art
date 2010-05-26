@@ -1,0 +1,13 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ creator.user.get_full_name }}{% endblock %}
+
+{% block header %}{{ creator.user.get_full_name }}{% endblock %}
+
+{% block content %}
+<div id="creator-detail">
+    {{ creator.profile|safe|linebreaks }}
+    {% if creator.website %}<p><strong><a target="_blank" href="{{ creator.website }}">Website</a></strong></p>{% endif %}<br clear="all" />
+    <p><a href="/store/products/creator/{{ creator.user.username }}/">View products by {{ creator.user.get_full_name }}</a></p>
+</div>
+{% endblock %}

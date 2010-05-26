@@ -1,0 +1,34 @@
+{% extends "registration/base.html" %}
+
+{% block title %}{% block header %}Change Profile{% endblock %}{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+{% for error in form.errors %}
+<p class="error">{{ error }}</p>
+{% endfor %}
+{% endif %}
+<div class="form">
+    <form method="post" action="">
+        <input type="hidden" name="user" value="{{ request.user.id }}" />
+        <table>
+            <tr>
+                <th>{{ form.location.label_tag }}</th>
+                <td>{{ form.location }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.about.label_tag }}</th>
+                <td>{{ form.about }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.interests.label_tag }}</th>
+                <td>{{ form.interests }}<br />(comma-separated list of your interests - i.e.: "choir, band, liturgical music")</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit" /></td>
+                <td><input type="reset" value="Reset Form" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

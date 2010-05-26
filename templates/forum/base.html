@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block section %}Forum{% endblock %}
+
+{%block sectionlinks %}
+<link rel="stylesheet" type="text/css" href="http://media.mjs-publishing.com/css/forum.css" />
+{% if user.is_authenticated %}
+{% ifnotequal user.active_cart '' %}
+<div id="cart-control">
+    Your active cart: <a href="/store/cart/{{ user.active_cart.id }}/">${{ user.active_cart.get_total }}</a>
+</div>
+{% endifnotequal %}
+{% endif %}
+<ul>
+    <li><a href="/forums/">Forum Home</a></li>
+    {% if user.is_authenticated %}<li><a href="/forums/pm/">Private Messages</a></li>
+    <li><a href="/forums/signature/">Edit Signature</a></li>{% endif %}
+</ul>
+{% endblock %}

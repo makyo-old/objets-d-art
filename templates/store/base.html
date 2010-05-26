@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block section %}Store{% endblock %}
+
+{% block sectionlinks%}
+{% if user.is_authenticated %}
+{% ifnotequal user.active_cart '' %}
+<div id="cart-control">
+    Your active cart: <a href="/store/cart/{{ user.active_cart.id }}/">${{ user.active_cart.get_total }}</a>
+</div>
+{% endifnotequal %}
+{% endif %}
+<ul>
+    <li><a href="/store/">Store Home</a></li>
+    <li><a href="/store/products/categories/">Categories</a></li>
+    <li><a href="/store/products/difficulties/">Difficulty Levels</a></li>
+    <li><a href="/store/products/ensembles/">Ensembles</a></li>
+    <li><a href="/store/products/creators/">Authors and Composers</a></li>
+    <li><a href="/store/products/tags/">Tags</a></li>
+    {% if user.is_authenticated %}<li><a href="/store/carts/">Your Carts</a></li>{% endif %}
+</ul>
+{% endblock %}

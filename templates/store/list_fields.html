@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ field|title }}s{% endblock %}
+
+{% block header %}{{ field|title }}s{% endblock %}
+
+{% block content %}
+<div class="field_list">
+    <ul>
+        {% for row in rows %}
+        <li><a href="/store/products/{{ field }}/{{row}}/">{{ row }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

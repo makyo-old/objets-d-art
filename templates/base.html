@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+    <head>
+        <title>Matthew J. Scott Music Publishing | {% block section %}{% endblock %} | {% block title %}{% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html charset=utf-8" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+    	<meta name="generator" content="Django 1.0.2 Final" />
+	    <meta name="keywords" content="sheet music,music publishing,intellectual property,modern music,classical music,jazz,education,music education,music" />
+    	<link rel="icon" type="image/png" href="http://media.mjs-publishing.com/icon.png" />
+	    <link rel="stylesheet" href="http://media.mjs-publishing.com/css/base.css" type="text/css" media="screen" />
+    	<link rel="stylesheet" href="http://media.mjs-publishing.com/css/print.css" type="text/css" media="print" />
+        <script type="text/javascript"> /* Prevent a flash of unstyled output in IE */ </script>
+        <!-- Debugging -->
+        <!--<script type='text/javascript' src='http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js'></script>-->
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            try {
+                var pageTracker = _gat._getTracker("UA-7871459-2");
+                pageTracker._trackPageview();
+            } catch(err) {}
+        </script>
+        <!--[if lt IE 7]>
+        <style>
+            div#navigation {
+                clear: both;
+                margin: 0;
+                background-color: #BBB;
+                display: block;
+                width: 100%;
+                height: 100%
+                background: none;
+                filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://media.mjs-publishing.com/gradient-white.png' sizingMethod='scale');
+            }
+        </style>
+        <![endif]-->
+    </head>
+    <body>
+        <div id="page">
+            <div id="header">
+    	        <div id="branding">
+                    <a name="top" href="/"><img src="http://media.mjs-publishing.com/logo.png" align="left" alt="[LOGO]"><h1><span></span>Matthew J. Scott Music Publishing</h1></a>
+                </div>
+                <div id="navbar">
+                    <div id="navigation">
+                        <div id="user-control">
+                            {% if user.is_authenticated %}
+                            <ul>
+                                <li><a><em>Welcome, {% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}!</em></a></li>
+                                <li><a href="/accounts/profile/">User Profile</a></li>
+                                <li><a href="/accounts/logout/">Log Out</a></li>
+                            </ul>
+                            {% else %}
+                            <ul>
+                                <li><a href="/accounts/login/">Log In</a></li>
+                                <li><a href="/accounts/register/">Register</a></li>
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <ul>
+                            <li><a href="/">Home</a>
+                            <li><a href="/store/">Store</a></li>
+                            <li><a><s>Forum</s></a></li>
+                            <li><a href="/about/">About</a></li>
+                        </ul>
+                    </div>
+                    <div id="subnavigation">
+            			{% block sectionlinks %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+             <div id="content">
+                <h2 id="title">{% block header %}{% endblock %}</h2>
+                <!-- dynamically generated content -->
+                {% if messages %}
+                <div id="messages">
+                    {% for message in messages %}
+                    <span class="message">{{ message|safe }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+{% block content %}{% endblock %}
+                <!-- /dynamically generated content -->
+                <!--{{ user|pprint}} {{request|pprint}}-->
+            </div>
+        </div>
+        <div id="copyright">
+            <p style="text-align: left; width: 75%; margin: auto; float: left;"><img src="http://media.mjs-publishing.com/by-nd.png" style="float: left; margin-right: 3px;" /><span>Except where <a href="/about/legal/">noted</a>, information on this site is licensed under a <a href="http://creativecommons.org/licenses/by-nd/3.0">Creative Commons 3.0 BY-ND 3.0 License</a><br />
+                <a href="/about/ip/">Intellectual Property and Rights</a> | <a href="/about/legal/">Legal and Privacy Information</a></span></p>
+            <p style="text-align: right; width: 25%; margin: auto; float: right;">Site by <a href="http://drupal.mjs-svc.com">MJS Services</a> | Powered by <a href="http://djangoproject.com">Django</a><br />
+                <a href="http://mjspub.com">Looking for MJS Publishing Group?</a></p>
+        </div>
+    </body>
+    <!-- 
+    vim: ft=htmldjango 
+    -->
+</html>

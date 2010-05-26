@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+    <head>
+        <title>Drab Makyo - Matthew Scott - {%block title%}{% endblock %}</title>
+        <link type="text/css" rel="stylesheet" media="Screen" href="http://media.drab-makyo.com/css/base.css" />
+        <script type="text/javascript"> </script>
+        <script type="text/javascript" src="http://media.drab-makyo.com/js/jquery-1.4.2.min.js"></script>
+        <!--<script type="text/javascript" src="http://media.drab-makyo.com/js/float.js"></script>-->
+    </head>
+    <body>
+        <div id="page">
+            <div id="header"><a href="/" title="Home" rel="home" id="logo"><img border="0" src="http://media.drab-makyo.com/images/logo.png" alt="Home" /></a></div>
+            <div id="navigation">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/scores/">Scores</a></li>
+                    <li><a href="/recordings/">Recordings</a></li>
+                    <!--<li><a href="/writing/">Writings</a></li>-->
+                    <li><a href="/graphics/">Graphics</a></li>
+                    <li><a href="/webdesign/">Web Design</a></li>
+                    <li><a href="/programming/">Programming</a><li>
+                    <!--<li><a href="/mixed/">Mixed Media</a></li>-->
+                </ul>
+            </div>
+            <div id="main">
+                <h1>{% block header %}{% endblock %}</h1>
+                <!-- Dyamically generated content -->
+                {% block content %}{% endblock %}
+                <!-- /Dynamically generated content -->
+                <p style="border: none; padding: 0; margin: 1em 0 0 0">
+                <!-- AddThis Button BEGIN -->
+                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4b9e87d66d0959a3"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4b9e87d66d0959a3"></script>
+                <!-- AddThis Button END -->
+                </p>
+            </div>
+            <div id="copyright">
+                <p><img src="http://media.mjs-publishing.com/by-nd.png" style="float: left; margin-right: 3px;" /><span>Except where noted, information on this site is licensed under a <a href="http://creativecommons.org/licenses/by-nd/3.0">Creative Commons 3.0 BY-ND 3.0 License</a><br />
+                Site by <a href="http://drupal.mjs-svc.com">MJS Services</a> | Powered by <a href="http://djangoproject.com">Django</a></p>
+            </div>
+        </div>
+    </body>
+    <!-- 
+    vim: ft=htmldjango 
+    -->
+</html>

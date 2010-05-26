@@ -1,0 +1,13 @@
+{% extends "registration/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}{% block header %}Member Interests{% endblock %}{% endblock %}
+
+{% block content %}
+<div class="tag-cloud">
+    {% tag_cloud_for_model usermgmt.Profile as tags with steps=6 distribution=log %}
+    {% for tag in tags %}
+    <span class="tag-{{ tag.font_size|add:"2" }}"><a href="/accounts/interest/{{ tag.name|slugify }}/">{{ tag.name }}</a></span>
+    {% endfor %}
+</div>
+{% endblock %}

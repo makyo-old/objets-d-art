@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block header %}Welcome to Matthew J. Scott Music Publishing{% endblock %}
+
+{% block content %}
+<p><strong>Welcome to Matthew J. Scott Music Publishing.</strong>  It is our goal to provide composers and authors with publishing administration services without retaining any restrictive rights so that they may do what they please with their music. The services we provide help composers to focus on their music without having to navigate the intricacies of publishing, marketing, printing, and distribution.</p>
+{% for item in newsitems %}
+<div class="newsitem">
+    <span class="title">{{ item.title }}</span>
+    <span class="postdate">{{ item.ctime|date:"D d M Y" }}</span>
+    <span class="body">{{ item.body|safe|linebreaks }}</span>
+    <span class="mtime">Last Modified: {{ item.mtime|date:"D d M Y h:m P" }}</span>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "registration/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}Common Interests{% endblock %}
+
+{% block header %}Users with common interests{% endblock %}
+
+{%block content %}
+<div id="product-filters">
+    <p>With interest: '{{ tag }}'</p>
+    {% if is_paginated %}<p>Showing users {{ page_obj.start_index }} through {{ page_obj.end_index }}</p>{% endif %}
+</div>
+
+    <ul id="user-list">
+        {% if is_paginated %}
+        {% for profile in page_obj.object_list %}
+        <li class="{% cycle 'odd' 'even' %}"><a href="/accounts/view/{{ profile.user.username }}/">{% if profile.user.get_full_name %}{{ profile.user.get_full_name }} ({{ profile.user.username }}){% else %}{{ profile.user.username }}{% endif %}</a> - {{ profile.location }}</li>
+        {% endfor %}
+        {% else %}
+        {% for profile in profile_list %}
+        <li class="{% cycle 'odd' 'even' %}"><a href="/accounts/view/{{ profile.user.username }}/">{% if profile.user.get_full_name %}{{ profile.user.get_full_name }} ({{ profile.user.username }}){% else %}{{ profile.user.username }}{% endif %}</a> - {{ profile.location }}</li>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </ul>
+    {% if is_paginated %}
+    <div class="pagination">
+                {% if page_obj.has_previous %}<a href="{{ request.path }}?page=1&paginate_by={{ paginate_by }}">&lt;&lt;</a> &bull; <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}&paginate_by={{ page_obj.per_page }}">&lt {{ page_obj.previous_page_number }}</a> &bull; {% endif %}<strong>{{ page }}</strong>{% if page_obj.has_next %} &bull; <a href="{{ request.path }}?page={{ page_obj.next_page_number }}&paginate_by={{ page_obj.per_page }}">{{ page_obj.next_page_number }} &gt;</a> &bull; <a href="{{ request.path }}?page=last&paginate_by={{ page_obj.per_page }}">&gt;&gt;</a>{% endif %}<br />
+                <form method="get" action=".">
+                    <label for="paginate_by">Items per page:</label>
+                    <select name="paginate_by" id="paginate_by">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="25" selected="selected">25</option>
+                        <!--<option value="50">50</option>
+                        <option value="100">100</option>-->
+                    </select>
+                    <input type="submit" value="Go" />
+                </form>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}Tags{% endblock %}
+
+{% block header%}Tag Cloud{% endblock %}
+
+{% block content %}
+<div class="tag-cloud">
+    {% tag_cloud_for_model store.Product as tags with steps=6 distribution=log %}
+    {% for tag in tags %}
+    <span class="tag-{{ tag.font_size|add:"2" }}"><a href="/store/products/tag/{{ tag.name|slugify }}/">{{ tag.name }}</a></span>
+    {% endfor %}
+</div>
+{% endblock %}

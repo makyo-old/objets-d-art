@@ -1,0 +1,26 @@
+{% extends "registration/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}{% block header %}User Profile{% endblock %}{% endblock %}
+
+{%block content %}
+<div id="user-profile">
+    <h2>{% if profile.user.get_full_name %}{{ profile.user.get_full_name }}{% else %}{{ profile.user.username }}{% endif %}</h2>
+    <dl>
+        {% if thisuser %}
+        <dt>E-Mail (only you can see this)</dt>
+        <dd>{{ thisuser.email }}</dd> 
+        {% endif %}
+        <dt>Location</dt>
+        <dd>{{ profile.location }}</dd>
+
+        <dt>About</dt>
+        <dd>{{ profile.about }}</dd>
+
+        <dt>Interests</dt>
+        <dd>{% tags_for_object profile as tags %}{% for tag in tags %}<span class="tag-{{ tag.font_size }}"><a href="/account/interest/{{ tag.name|slugify }}">{{ tag.name }}</a></span>{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}</dd>
+    </dl>
+    {% if thisuser %}<p><a href="/accounts/profile/edit/">Edit your profile</a><br />
+    <a href="/accounts/password/change/">Change your password</a></p>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "store/base.html" %}
+
+{% block title %}Cart: {{ cart.name }}{% endblock %}
+
+{% block header %}Cart: {{ cart.name }} - {{ cart.get_local_status_display }}{% endblock %}
+
+{% block content %}
+<table id="cart-metadata">
+    <tr>
+        <th>Active status <span style="font-size: 75%; font-weight: normal">[<a>?</a>]</span></th>
+        <td>{% if cart.is_active %}This cart is your active cart{% else %}This is not your active cart (<a href="/store/cart/{{ user.active_cart.id }}/">here it is!</a>)<br />
+            <form id="activate-cart" method="get" action="">
+                <input type="hidden" name="action" value="activate" />
+                <input type="submit" value="Make this your active cart" />
+            </form>{% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Shared status <span style="font-size: 75%; font-weight: normal">[<a>?</a>]</span></th>
+        <td>{% if cart.is_shared %}This cart is publicly viewable; feel free to share the URL.<br /><a href="/store/cart/{{ cart.id }}/?action=unshare">Make this cart private</a>{% else %}This cart is private - only you can see it and its contents.<br /><a href="/store/cart/{{ cart.id }}/?action=share">Make this cart publicly viewable</a>{% endif %}</td>
+    </tr>
+    <tr>
+        <form id="delete-cart" method="post" action="?action=delete">
+            <th><label for="delete">Delete this cart</label></th>
+            <td><input type="submit" value="Delete this cart"></td>
+        </form>
+    </tr>
+    <tr>
+        <form id="rename-cart" method="post" action="?action=rename">
+            <th><label for="newname">Rename this cart</label></th>
+            <td><input type="text" name="newname" size="15" maxlength="125" /><br /><input type="submit" value="Rename Cart" /></td>
+        </form>
+    </tr>
+</table>
+
+<table id="cart-data">
+    <thead>
+        <th>Remove</th>
+        <th style="text-align: left">Item/Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </thead>
+<form method="post" action="?action=update">
+    <tbody>
+        {% for item in cart.item_set.all %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td width="10%" style="text-align: center"><input type="checkbox" name="remove" value="{{ item.id }}" /></td>
+            <td><a href="/store/product/{{ item.product.sku }}/">{{ item.product.name }}</a><br />
+                <span class="product-metadata">{{ item.product.short_desc }}</span></td>
+            <td width="10%" style="text-align: center">${{ item.product.price }} ea.</td>
+            <td width="10%" style="text-align: center">&times;<input type="text" size="2" name="q{{ item.id }}" value="{{ item.quantity }}" /></td>
+        </tr>
+        {% endfor %}
+        {% if not cart.item_set.all.count %}
+        <tr>
+            <td colspan="4" style="text-align: center"><span class="warning">This cart is empty!</span></td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Update Cart" />
+            </td>
+            <th style="text-align: right">
+                Subtotal:
+            </th>
+            <td>
+                ${{ cart.get_total }}
+            </td>
+        </tr>
+    </tbody>
+</form>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <div id="checkout">
+                    <!-- Level 1 Integration -->
+                    <form action="." method="get">
+
+                        <input type="hidden" name="action" value="checkout" />
+                        <input type="image" src="{{ cart.get_cart.button|escape|safe }}" />
+                    </form>
+                    <!-- Level 2 Integration
+                    {{ cart.get_cart.html|safe }}-->
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

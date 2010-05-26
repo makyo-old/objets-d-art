@@ -1,0 +1,21 @@
+{% extends "store/base.html" %}
+
+{% block title %}New Cart{% endblock %}
+
+{% block header %}Create a new cart{% endblock %}
+
+{% block content %}
+<form id="new-cart" action="." method="post">
+    <p>
+        <label for="newname">New cart name (optional)</label>
+        <input type="text" maxlength="125" name="newname" id="newname" />
+    </p>
+    <p>
+        <label for="shared">Share this cart? (optional)</label>
+        <input type="checkbox" name="shared" />
+    </p>
+    <p>
+        <input type="submit" value="Create cart" />
+    </p>
+</form>
+{% endblock %}

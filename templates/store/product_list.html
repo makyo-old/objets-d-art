@@ -1,0 +1,82 @@
+{% extends "store/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}Products{% endblock %}
+
+{% block header %}Products{% endblock %}
+
+{%block content %}
+<div id="product-filters">
+    {% if not tag %}
+    <p>{{ filter_by|title }}: {{ filter }} </p>
+    {% else %}
+    <p>With tag: {{ tag }}</p>
+    {% endif %}
+    {% if is_paginated %}<p>Showing items {{ page_obj.start_index }} through {{ page_obj.end_index }}</p>{% endif %}
+</div>
+
+<table id="product-list">
+    <thead>
+        <tr>
+            <th style="text-align: left">Product</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if is_paginated %}
+        {% for product in page_obj.object_list %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td class="product-info"><strong><a href="/store/product/{{ product.sku }}/">{{ product.name }}</a></strong> - {{ product.creator.user.get_full_name }}<br />
+                {{ product.short_desc }}<br />
+                <span class="product-metadata">
+                    Instrumentation: <a href="/store/product/instrumentation/{{ product.instrumentation }}/">{{ product.instrumentation }}</a> |
+                    Difficulty: {{ product.get_difficulty_display }} |
+                    Tags: {% tags_for_object product as tags %}{% for tag in tags %}<a href="/store/products/tag/{{ tag.name|slugify }}/">{{ tag.name }}</a>{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}
+                </span>
+            </td>
+            <td class="product-price">
+                {% ifequal product.status '0' %}${{ product.price }}{% else %}{{ product.get_status_display }}{% endifequal %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        {% for product in product_list %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td class="product-info"><strong><a href="/store/product/{{ product.sku }}/">{{ product.name }}</a></strong> - {{ product.creator.user.get_full_name }}<br />
+                {{ product.short_desc }}<br />
+                <span class="product-metadata">
+                    Instrumentation: {{ product.instrumentation }} |
+                    Difficulty: {{ product.get_difficulty_display }} |
+                    Tags: {% tags_for_object product as tags %}{% for tag in tags %}<a href="/store/products/tag/{{ tag.name|slugify }}/">{{ tag.name }}</a>{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}
+                </span>
+            </td>
+            <td class="product-price">
+                {% ifequal product.status '0' %}${{ product.price }}{% else %}{{ product.get_status_display }}{% endifequal %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+    {% if is_paginated %}
+    <tfoot>
+        <tr>
+            <td colspan="2" style="text-align: center">
+                {% if page_obj.has_previous %}<a href="{{ request.path }}?page=1&paginate_by={{ paginate_by }}">&lt;&lt;</a> &bull; <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}">&lt {{ page_obj.previous_page_number }}</a> &bull; {% endif %}<strong>{{ page_obj }}</strong>{% if page_obj.has_next %} &bull; <a href="{{ request.path }}?page={{ page_obj.next_page_number }}&paginate_by={{ paginate_by }}">{{ page_obj.next_page_number }} &gt;</a> &bull; <a href="{{ request.path }}?page=last&paginate_by={{ paginate_by }}">&gt;&gt;</a>{% endif %}<br />
+                <form method="get" action=".">
+                    <label for="paginate_by">Items per page:</label>
+                    <select name="paginate_by" id="paginate_by">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="25" selected="selected">25</option>
+                        <!--<option value="50">50</option>
+                        <option value="100">100</option>-->
+                    </select>
+                    <input type="submit" value="Go" />
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+    {% endif %}
+</table>
+{% endblock %}

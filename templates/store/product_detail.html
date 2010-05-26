@@ -1,0 +1,73 @@
+{% extends "store/base.html" %}
+{% load tagging_tags %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block header %}{{ product }}{% endblock %}
+
+{% block content %}
+
+<div id="meta">
+    <h3 id="creator"><a href="/store/creator/{{ product.creator.user.username }}/">{{ product.creator.user.get_full_name }}</a></h3>
+    <p>{{ product.short_desc }}</p>
+    <dl id="product-meta">
+        <dt>MJS-MP#</dt>
+        <dd>{{ product.sku }}</dd>
+
+        <dt>Pages</dt>
+        <dd>{{ product.pages }}</dd>
+        {% if product.duration %}
+        <dt>Duration</dt>
+        <dd>Approx. {{ product.get_duration_display }} (~{{ product.duration }} minutes)</dd>
+        {% endif %}
+        <dt>Difficulty</dt>
+        <dd><a href="/store/products/difficulty/#{{ product.difficulty }}">{{ product.get_difficulty_display }}</a></dd>
+
+        <dt>Category</dt>
+        <dd><a href="/store/products/category/{{ product.category }}">{{ product.get_category_display }}</a></dd>
+        {% if product.ensemble %}
+        <dt>Ensemble</dt>
+        <dd><a href="/store/products/ensemble/{{product.ensemble }}/">{{ product.ensemble }}</a></dd>
+        {% endif %}
+        {% if product.instrumentation %}
+        <dt>Instrumentation</dt>
+        <dd><a href="/store/products/instrumentation/{{ product.instrumentation }}/">{{ product.instrumentation }}</a></dd>
+        {% endif %}
+        <dt class="tags">Tags</dt>
+        <dd class="tags">{% tags_for_object product as tags %}{% for tag in tags %}<span class="tag-{{ tag.font_size }}"><a href="/store/products/tag/{{ tag.name|slugify }}">{{ tag.name }}</a></span>{% if forloop.last %}.{% else %}, {% endif %}{% endfor %}</dd>
+    </dl>
+</div>
+
+<div class="long-desc">
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    {{ product.long_desc|safe|linebreaks }}
+    {% if product.sample_set.count %}
+    <dl>
+        {% for sample in product.sample_set.all %}
+        <dt>{{ sample.get_type_display }}</dt>
+        <dd>{{ sample.html|safe }}</dd>
+        {% endfor %}
+    </dl>
+    {% endif %}
+</div>
+
+<div id="add-form">
+    {% if user.is_authenticated %}
+    {% ifequal product.status '0' %}
+    <strong>Add to cart:</strong>
+    <form action="." method="post">
+        <label for="quantity">Quantity:</label>
+        <input type="text" size="3" name="quantity" id="quantity" />
+        <input type="submit" value="Add to cart" />
+    </form>
+    {% else %}
+    <span class="error">{{ product.get_status_display }}</span>
+    {% endifequal %}
+    {% else %}
+    <a href="/accounts/login/?next={{ request.path }}">Please log in to shop for this and other products!</a>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+
