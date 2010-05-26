@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Website: {{ object.title }}{% endblock %}
+
+{% block header %}Website: {{ object.title }}{% endblock %}
+
+{% block content %}
+<a href="{{ object.external_link }}" target="_blank">
+    {% if object.image %}<img src="http://media.drab-makyo.com/{{ object.image }}" style="display: block; margin: auto" /><br clear="all" />{% else %}{{ object.title }}{% endif %}
+</a>
+<p>
+{{ object.description|safe }}
+</p>
+
+<ul>
+    <li><strong>Date:</strong> {{ object.date }}</li>
+    <li><strong>Status:</strong> {{ object.get_status_display }}</li>
+    <li><strong>Part of multi-part work:</strong> {% if object.part_of_work %}<a href="/package/{{ object.part_of_work.slug }}/">{{ object.part_of_work.title }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>External link:</strong> {% if object.external_link %}<a href="{{ object.external_link }}" target="_blank">{{ object.external_link }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+
+<!--<p><a href="{{object.license.url }}" target="_blank" alt="{{object.license.title }}">{{ object.license.display|safe }} Matthew Scott {{ object.date|date:"Y" }}</a> - {{ object.license.description|safe }}</p>-->
+{% endblock %}

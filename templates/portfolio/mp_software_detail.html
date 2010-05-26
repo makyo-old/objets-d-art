@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Programs in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Programs in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in mp_object.program_set.all %}
+    <li class="{% cycle "odd" "even"%}"><a href="/program/{{ object.slug }}/">{{ object.title }}</a> - {{ object.description|safe|truncatewords_html:2 }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

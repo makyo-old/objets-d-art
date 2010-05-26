@@ -1,0 +1,12 @@
+<asx version="3.0">
+    <title>{{ mp_object.title }}</title>
+    {% for object in mp_object.recording_set.all %}
+    <entry>
+        <title>{{ object.title }}</title>
+        <author>{% if object.performer %}{{ object.performer }}{% else %}{% if object.source %}{{ object.source }}{% else %}Matthew Scott{% endif %}{% endif %}</author>
+        <abstract>{{ object.description|truncatewords:25 }} <a href="/score/{{ object.slug }}/">More...</a></abstract>
+        <moreinfo href="/score/{{ object.slug }}" />
+        <ref href="http://media.drab-makyo.com/{{ object.music_file }}" />
+    </entry>
+    {% endfor %}
+</asx>

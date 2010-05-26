@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Recordings in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Recordings in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<p>{{ mp_object.description|safe }}<br /><a href="#playall">Play all in set</a></p>
+<p>
+<ul>
+    <li><strong>Date:</strong> {{ mp_object.date|date:"F Y" }}</li>
+    <li><strong>Status:</strong> {{ mp_object.get_status_display }}</li>
+    <li><strong>External link:</strong> {% if mp_object.external_link %}<a href="{{ mp_object.external_link }}">Available</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+</p>
+<hr width="50%" />
+<ul>
+    {% for object in mp_object.recording_set.all %}
+    <li class="{% cycle "odd" "even"%}"><a href="/recording/{{ object.slug }}/">{{ object.title }}</a> - {{ object.description|safe|truncatewords_html:25 }}</li>
+    {% endfor %}
+</ul>
+<hr width="50%" />
+<a name="playall"></a>
+<h3>Play set</h3>
+<a style="border: 1px solid #ccc; background-color: #ddd" target="dmplayer" href="/ajax/collection/{{ mp_object.slug }}" onClick="window.open('/ajax/collection/{{ mp_object.slug }}', 'dmplayer', 'status=yes,menubar=no,toolbar=no,location=no,directories=no,resizable=no,scrollbars=no,height=230,width=500')">Launch in separate window</a>
+<script type='text/javascript' src='http://media.drab-makyo.com/js/swfobject.js'></script>
+ 
+<div id='mediaspace'>This text will be replaced</div>
+ 
+<script type='text/javascript'>
+    var so = new SWFObject('http://media.drab-makyo.com/player.swf','ply','470','204','9','#ffffff');
+    so.addParam('allowfullscreen','true');
+    so.addParam('allowscriptaccess','always');
+    so.addParam('wmode','opaque');
+    so.addVariable('playlistfile','/collection/{{ mp_object.slug }}/%3Fasx%3dtrue');
+    so.addVariable('playlist','bottom');
+    so.addVariable('repeat','list');
+    so.write('mediaspace');
+</script>
+
+{% include "portfolio/mp_license.html" %}
+{% endblock %}

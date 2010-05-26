@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Websites in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Websites in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in mp_object.website_set.all %}
+    <li class="{% cycle "odd" "even"%}"><a href="/website/{{ object.slug }}/">{{ object.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

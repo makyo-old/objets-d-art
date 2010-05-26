@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Writings{% endblock %}
+
+{% block header %}Writings{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in objects %}
+    <li class="{% cycle "odd" "even" %}"><a href="/{{ object.type }}/{{ object.slug }}/">{{ object.title }}</a></li>
+    {% endfor %}
+</ul>
+
+{% ifnotequal mps.count 0 %}
+<h3>Sets</h3>
+<ul>
+    {% for mp in mps %}
+    <li class="{% cycle "odd" "even" %}"><a href="/book/{{ mp.slug }}/">{{ mp.title }}</a> - {{ mp.description|safe|truncatewords_html:25 }}</li>
+    {% endfor %}
+</ul>
+{% endifnotequal %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Websites{% endblock %}
+
+{% block header %}Websites{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in objects %}
+    <li class="{% cycle "odd" "even" %}"><a href="/website/{{ object.slug }}/"><img src="http://media.drab-makyo.com/{{ object.image }}" style="display: block; margin: auto; width: 150px" /><br/>{{ object.title }}</a> - {{ object.description|safe|truncatewords_html:25 }}<br />
+    </li>
+    {% endfor %}
+</ul>
+
+{% ifnotequal mps.count 0 %}
+<h3>Sets</h3>
+<ul>
+    {% for mp in mps %}
+    <li class="{% cycle "odd" "even" %}"><a href="/collection/{{ mp.slug }}/">{{ mp.title }}</a> - {{ mp.description|safe|truncatewords_html:25 }}</li>
+    {% endfor %}
+</ul>
+{% endifnotequal %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Writing: {{ object.title }}{% endblock %}
+
+{% block header %}Writing: {{ object.title }}{% endblock %}
+
+{% block content %}
+<p>
+{{ object.description|safe }}
+</p>
+
+<ul>
+    <li>Date: {{ object.date }}</li>
+    <li>Status: {{ object.get_status_display }}</li>
+    <li>Part of multi-part work: {% if object.part_of_work %}<a href="/gallery/{{ object.part_of_work.slug }}/">{{ object.part_of_work.title }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li>External link: {% if object.external_link %}<a href="{{ object.external_link }}" target="_blank">{{ object.external_link }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+
+<div class="fulltext">
+    {{ object.full_text }}
+</div>
+
+<p><a href="{{object.license.url }}" target="_blank" alt="{{object.license.title }}">{{ object.license.display|safe }} Matthew Scott {{ object.date|date:"Y" }}</a> - {{ object.license.description|safe }}</p>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Program: {{ object.title }}{% endblock %}
+
+{% block header %}Program: {{ object.title }}{% endblock %}
+
+{% block content %}
+{% if object.image %}<img src="http://media.drab-makyo.com/{{ object.image }}" style="display: block; margin: auto; width: 50%" /><br clear="all" />{% endif %}
+<p>
+{{ object.description|safe }}
+</p>
+
+<ul>
+    <li><strong>File download:</strong> {% if object.file %}<a href="http://media.drab-makyo.com/{{ object.file }}" target="_blank">Available</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>Date:</strong> {{ object.date }}</li>
+    <li><strong>Status:</strong> {{ object.get_status_display }}</li>
+    <li><strong>Part of multi-part work:</strong> {% if object.part_of_work %}<a href="/package/{{ object.part_of_work.slug }}/">{{ object.part_of_work.title }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>External link:</strong> {% if object.external_link %}<a href="{{ object.external_link }}" target="_blank">{{ object.external_link }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+
+{% include "portfolio/license.html" %}
+{% endblock %}

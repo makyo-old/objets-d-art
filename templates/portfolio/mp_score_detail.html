@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Scores in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Scores in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<p>{{ mp_object.description|safe }}</p>
+<p>
+<ul>
+    <li><strong>Date:</strong> {{ mp_object.date|date:"F Y" }}</li>
+    <li><strong>Status:</strong> {{ mp_object.get_status_display }}</li>
+    <li><strong>External link:</strong> {% if mp_object.external_link %}<a href="{{ mp_object.external_link }}">Available</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+</p>
+<hr width="50%" />
+<ul>
+    {% for object in mp_object.score_set.all %}
+    <li class="{% cycle "odd" "even"%}"><a href="/score/{{ object.slug }}/">{{ object.title }}</a> - {{ object.instrumentation }} <br />
+    <p>{{ object.description|safe|truncatewords_html:25 }}</p></li>
+    {% endfor %}
+</ul>
+
+{% include "portfolio/mp_license.html" %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Recording: {{ object.title }}{% endblock %}
+
+{% block header %}Recording: {{ object.title }}{% endblock %}
+
+{% block content %}
+<script type='text/javascript' src='http://media.drab-makyo.com/js/swfobject.js'></script>
+ 
+<div id='mediaspace'>This text will be replaced</div>
+<a style="border: 1px solid #ccc; background-color: #ddd" target="dmplayer" href="/ajax/recording/{{ object.slug }}" onClick="window.open('/ajax/recording/{{ object.slug }}', 'dmplayer', 'status=yes,menubar=no,toolbar=no,location=no,directories=no,resizable=no,scrollbars=no,height=230,width=500')">Launch in separate window</a>
+ 
+<script type='text/javascript'>
+    var so = new SWFObject('http://media.drab-makyo.com/player.swf','mpl','470','24','9');
+    so.addParam('allowfullscreen','true');
+    so.addParam('allowscriptaccess','always');
+    so.addParam('wmode','opaque');
+    so.addVariable('file','http://media.drab-makyo.com/{{ object.music_file }}');
+    so.addVariable('title','{{ object.title }}');
+    so.write('mediaspace');
+</script>
+<p>
+{{ object.description|safe }}
+</p>
+
+<ul>
+    <li><strong>Date:</strong> {{ object.date }}</li>
+    <li><strong>Source:</strong> {% if object.source %}{{ object.source }}{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>Performer:</strong> {% if object.performer %}{{ object.performer }}{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>Score:</strong> {% if object.score %}<a href="/score/{{ object.score.slug }}">Available</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>Duration:</strong> {{ object.duration }} minutes</li>
+    <li><strong>Status:</strong> {{ object.get_status_display }}</li>
+    <li><strong>Part of multi-part work:</strong> {% if object.part_of_work %}<a href="/gallery/{{ object.part_of_work.slug }}/">{{ object.part_of_work.title }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+    <li><strong>External link:</strong> {% if object.external_link %}<a href="{{ object.external_link }}" target="_blank">{{ object.external_link }}</a>{% else %}<em>N/A</em>{% endif %}</li>
+</ul>
+
+{% include "portfolio/license.html" %}
+{% endblock %}

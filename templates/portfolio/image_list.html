@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Images{% endblock %}
+
+{% block header %}Images{% endblock %}
+
+{% block content %}
+<table border="0" width="100%">
+{% for object in objects %}
+    {% cycle "<tr class=\"odd\">" "" "" "" "<tr class=\"even\">" "" "" "" %}
+    <td align="center" class="{% cycle "odd" "even" %}"><a href="/{% ifequal object.type "p" %}photo{% else %}graphic{% endifequal %}/{{ object.slug }}/"><img src="http://media.drab-makyo.com/{{ object.thumb }}" /><br />
+            {{ object.title }}</a></td>
+    {% cycle "" "" "" "</tr>" %}
+{% endfor %}
+</table>
+
+{% ifnotequal mps.count 0 %}
+<h3>Sets</h3>
+<ul>
+    {% for mp in mps %}
+    <li class="{% cycle "odd" "even"%}"><a href="/gallery/{{ mp.slug }}/">{{ mp.title }}</a> - {{ mp.description|safe|truncatewords_html:25 }}</li>
+    {% endfor %}
+</ul>
+{% endifnotequal %}
+{% endblock %}

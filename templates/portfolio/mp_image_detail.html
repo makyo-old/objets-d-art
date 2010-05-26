@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Images in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Images in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<table border="0">
+{% for object in mp_object.image_set.all %}
+    {% cycle "<tr>" "" "" "" %}
+        <td><a href="/{% ifequal object.type "p" %}photo{% else %}graphic{% endif %}/{{ object.slug }}/"><img src="{{ object.thumb }}" /><br />
+            {{ object.title }}</a></td>
+    {% cycle "" "" "" "</tr>" %}
+{% endfor %}
+{% endblock %}

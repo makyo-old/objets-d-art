@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Writings in {{ mp_object.title }}{% endblock %}
+
+{% block header %}Writings in {{ mp_object.title }}{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in mp_object.writing_set.all %}
+    <li class="{% cycle "odd" "even"%}"><a href="/{{ object.type }}/{{ object.slug }}/">{{ object.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

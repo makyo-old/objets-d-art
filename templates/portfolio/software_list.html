@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Programs{% endblock %}
+
+{% block header %}Programs{% endblock %}
+
+{% block content %}
+<ul>
+    {% for object in objects %}
+    <li class="{% cycle "odd" "even" %}"><a href="/program/{{ object.slug }}/">{{ object.title }}</a> - {{ object.description|safe|truncatewords_html:25 }}</li>
+    {% endfor %}
+</ul>
+
+{% ifnotequal mps.count 0 %}
+<h3>Sets</h3>
+<ul>
+    {% for mp in mps %}
+    <li class="{% cycle "odd" "even" %}"><a href="/package/{{ mp.slug }}/">{{ mp.title }}</a> - {{mp.description|safe|truncatewords_html:25 }}</li>
+    {% endfor%}
+</ul>
+{% endifnotequal %}
+{% endblock %}

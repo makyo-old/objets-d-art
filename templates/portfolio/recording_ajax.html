@@ -1,0 +1,20 @@
+
+<script type='text/javascript' src='http://media.drab-makyo.com/js/swfobject.js'></script>
+ 
+<div id='mediaspace'>This text will be replaced</div>
+ 
+<script type='text/javascript'>
+    var so = new SWFObject('http://media.drab-makyo.com/player.swf','mpl','470','204','9');
+    so.addParam('allowfullscreen','true');
+    so.addParam('allowscriptaccess','always');
+    so.addParam('wmode','opaque');
+    so.addVariable('file','http://media.drab-makyo.com/{{ object.music_file }}');
+    so.addVariable('title','{{ object.title }}');
+    so.addVariable('author','Matthew Scott');
+    so.addVariable('description','{{ object.description|truncatewords:25 }}')
+    so.addVariable('autostart', 'true');
+    so.addVariable('playlist','bottom');
+    so.write('mediaspace');
+</script>
+
+<a href="javascript:window.close()">Close this window</a>
